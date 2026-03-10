@@ -51,7 +51,7 @@ export default function DashboardPage() {
         }
 
         const res = await fetch(
-          `http://openapi.seoul.go.kr:8088/${apiKey}/json/bikeList/1/1000/`
+          `/api/seoul-bike/${apiKey}`
         );
         
         if (!res.ok) {
