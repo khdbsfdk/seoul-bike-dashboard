@@ -14,29 +14,10 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/api/auth/signin", req.url));
   }
 
-  // Cross-reference user with Turso database
-  if (token && token.email) {
-    try {
-      const db = createClient({
-        url: process.env.TURSO_DATABASE_URL as string,
-        authToken: process.env.TURSO_AUTH_TOKEN as string,
-      });
-
-      const result = await db.execute({
-        sql: "SELECT * FROM allowed_users WHERE email = ?",
-        args: [token.email],
-      });
-
-      if (result.rows.length === 0) {
-        return new NextResponse(
-          JSON.stringify({ error: "Access Denied. Your email is not whitelisted." }),
-          { status: 403, headers: { 'content-type': 'application/json' } }
-        );
-      }
-    } catch (error) {
-       console.error("Middleware DB error:", error);
-       return new NextResponse("Internal Server Error: Database Connection Failed", { status: 500 });
-    }
+  // If there's a valid NextAuth token, we just let them in.
+  // The 'users' table in DB is automatically populated via the signIn callback in route.ts
+  if (token) {
+    return NextResponse.next();
   }
 
   return NextResponse.next();

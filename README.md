@@ -7,9 +7,10 @@ A modern web application built with Next.js (App Router), Tailwind CSS, Shadcn U
 - **Next.js App Router**: Modern, fast, and feature-rich React framework.
 - **Tailwind CSS & Shadcn UI**: Beautiful, accessible, and customizable components.
 - **NextAuth.js**: Seamless authentication using Google OAuth.
-- **Turso Database**: Edge SQLite database for storing allowed users.
-- **Security Middleware**: Edge middleware that restricts access only to users whitelisted in the Turso database.
+- **Turso Database**: Edge SQLite database for storing users and guestbook entries.
+- **Auto Sign-up Middleware**: Automatic user registration upon Google Login with Edge middleware protecting internal routes.
 - **Real-time Map Visualization**: Integrated `react-leaflet` to display live bike station statuses interactively.
+- **Interactive Guestbook**: Open discussion board powered by seamless Next.js Server Actions.
 
 ## Prerequisites
 
