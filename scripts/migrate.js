@@ -9,9 +9,13 @@ const dotenv = require("dotenv");
 dotenv.config({ path: path.resolve(process.cwd(), ".env.local") });
 
 async function migrate() {
-  console.log("Using local database 'local.db' to bypass expired remote credentials...");
+  if (!process.env.TURSO_DATABASE_URL || !process.env.TURSO_AUTH_TOKEN) {
+    console.warn("Please set TURSO_DATABASE_URL and TURSO_AUTH_TOKEN environment variables in .env.local");
+  }
+
   const db = createClient({
-    url: "file:local.db",
+    url: process.env.TURSO_DATABASE_URL || "file:local.db",
+    authToken: process.env.TURSO_AUTH_TOKEN,
   });
 
   try {
