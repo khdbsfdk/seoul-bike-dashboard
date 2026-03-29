@@ -28,7 +28,8 @@ export const authOptions: NextAuthOptions = {
         return true;
       } catch (error) {
         console.error("Error saving user to DB during sign in:", error);
-        return false;
+        // Allow login to proceed even if the database insert fails (e.g. usage limit exceeded)
+        return true;
       }
     },
   },
